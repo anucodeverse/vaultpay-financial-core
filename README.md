@@ -265,7 +265,7 @@ receipts/
 ### 1. Clone the Repository
 
 ```bash
-git clone <your-github-repository-url>
+git clone https://github.com/anucodeverse/vaultpay-financial-core
 cd vaultpay-financial-core
 ```
 
