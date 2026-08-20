@@ -1,0 +1,94 @@
+const nodemailer = require("nodemailer");
+console.log("EMAIL_USER exists:", !!process.env.EMAIL_USER);
+console.log("EMAIL_PASS exists:", !!process.env.EMAIL_PASS);
+const transporter = nodemailer.createTransport({
+    service: "gmail",
+
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+    }
+});
+
+const sendInvoiceReceipt = async (invoice, pdfPath) => {
+    try {
+        const mailOptions = {
+            from: `"VaultPay" <${process.env.EMAIL_USER}>`,
+
+            to: invoice.clientEmail,
+
+            subject: `Payment Receipt - ${invoice.invoiceNumber}`,
+
+            text: `
+Hello ${invoice.clientName},
+
+Your payment for invoice ${invoice.invoiceNumber} has been successfully received.
+
+Invoice: ${invoice.invoiceNumber}
+Amount: ${invoice.amount} ${invoice.currency.toUpperCase()}
+Status: PAID
+
+Thank you for your payment.
+
+Regards,
+VaultPay
+Nexus Corporate Services
+            `,
+
+            html: `
+                <h2>Payment Successful</h2>
+
+                <p>Hello ${invoice.clientName},</p>
+
+                <p>
+                    Your payment for invoice
+                    <strong>${invoice.invoiceNumber}</strong>
+                    has been successfully received.
+                </p>
+
+                <p>
+                    <strong>Invoice:</strong> ${invoice.invoiceNumber}<br>
+                    <strong>Amount:</strong> ${invoice.amount} ${invoice.currency.toUpperCase()}<br>
+                    <strong>Status:</strong> PAID
+                </p>
+
+                <p>
+                    Your payment receipt is attached to this email.
+                </p>
+
+                <p>
+                    Regards,<br>
+                    <strong>VaultPay</strong><br>
+                    Nexus Corporate Services
+                </p>
+            `,
+
+            attachments: [
+                {
+                    filename: `${invoice.invoiceNumber}-receipt.pdf`,
+                    path: pdfPath
+                }
+            ]
+        };
+
+        const info = await transporter.sendMail(mailOptions);
+
+        console.log(
+            `Receipt email sent successfully: ${info.messageId}`
+        );
+
+        return info;
+
+    } catch (error) {
+        console.error(
+            "Receipt email failed:",
+            error.message
+        );
+
+        throw error;
+    }
+};
+
+module.exports = {
+    sendInvoiceReceiptEmail: sendInvoiceReceipt
+};

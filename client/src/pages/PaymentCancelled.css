@@ -1,0 +1,18 @@
+.payment-cancel-icon {
+    width: 70px;
+    height: 70px;
+
+    margin: 0 auto 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #fee2e2;
+    color: #991b1b;
+
+    font-size: 36px;
+    font-weight: 700;
+}
