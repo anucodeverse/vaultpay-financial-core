@@ -16,11 +16,12 @@ const app = express();
 
 app.use(cors());
 
-// IMPORTANT:
-// Webhook route must come BEFORE express.json()
-app.use("/api/webhooks", webhookRoutes);
+// =========================================
+// STRIPE WEBHOOK
+// MUST USE RAW BODY
+// =========================================
 
-// Normal JSON requests
+app.use("/api/webhooks", webhookRoutes);
 app.use(express.json());
 
 connectDB();

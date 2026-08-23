@@ -1,6 +1,8 @@
 const nodemailer = require("nodemailer");
+
 console.log("EMAIL_USER exists:", !!process.env.EMAIL_USER);
 console.log("EMAIL_PASS exists:", !!process.env.EMAIL_PASS);
+
 const transporter = nodemailer.createTransport({
     service: "gmail",
 
@@ -10,9 +12,30 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+// Check SMTP connection when server starts
+transporter.verify((error, success) => {
+    if (error) {
+        console.error("❌ Gmail SMTP connection failed:");
+        console.error(error);
+    } else {
+        console.log("✅ Gmail SMTP connection is ready");
+    }
+});
+
 const sendInvoiceReceipt = async (invoice, pdfPath) => {
+
     try {
+
+        console.log("=================================");
+        console.log("📧 Starting receipt email");
+        console.log("To:", invoice.clientEmail);
+        console.log("From:", process.env.EMAIL_USER);
+        console.log("PDF:", pdfPath);
+        console.log("Invoice:", invoice.invoiceNumber);
+        console.log("=================================");
+
         const mailOptions = {
+
             from: `"VaultPay" <${process.env.EMAIL_USER}>`,
 
             to: invoice.clientEmail,
@@ -73,17 +96,19 @@ Nexus Corporate Services
 
         const info = await transporter.sendMail(mailOptions);
 
-        console.log(
-            `Receipt email sent successfully: ${info.messageId}`
-        );
+        console.log("✅ RECEIPT EMAIL SENT");
+        console.log("Message ID:", info.messageId);
+        console.log("Response:", info.response);
 
         return info;
 
     } catch (error) {
-        console.error(
-            "Receipt email failed:",
-            error.message
-        );
+
+        console.error("❌ RECEIPT EMAIL FAILED");
+        console.error("Error code:", error.code);
+        console.error("Error command:", error.command);
+        console.error("Error response:", error.response);
+        console.error("Error message:", error.message);
 
         throw error;
     }
