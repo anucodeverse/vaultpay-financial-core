@@ -7,11 +7,10 @@ const Register = () => {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        password: "",
-        role: "client"
-    });
+    name: "",
+    email: "",
+    password: ""
+});
 
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
@@ -107,23 +106,6 @@ const Register = () => {
                         />
                     </div>
 
-                    <div>
-                        <label>Account Type</label>
-
-                        <select
-                            name="role"
-                            value={formData.role}
-                            onChange={handleChange}
-                        >
-                            <option value="client">
-                                Client
-                            </option>
-
-                            <option value="admin">
-                                Admin
-                            </option>
-                        </select>
-                    </div>
 
                     <button
                         type="submit"
