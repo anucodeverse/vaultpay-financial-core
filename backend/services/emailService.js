@@ -1,49 +1,44 @@
-const nodemailer = require("nodemailer");
+const fs = require("fs");
+const path = require("path");
+const { Resend } = require("resend");
 
-console.log("EMAIL_USER exists:", !!process.env.EMAIL_USER);
-console.log("EMAIL_PASS exists:", !!process.env.EMAIL_PASS);
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
-    secure: false,
-    requireTLS: true,
+// Sender email
+// IMPORTANT:
+// Use a sender address/domain that Resend allows you to send from.
+// For initial testing, you can use the Resend onboarding sender if available.
+const FROM_EMAIL = process.env.EMAIL_FROM || "onboarding@resend.dev";
 
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-    },
-
-    family: 4
-});
-
-// Check SMTP connection when server starts
-transporter.verify((error, success) => {
-    if (error) {
-        console.error("❌ Gmail SMTP connection failed:");
-        console.error(error);
-    } else {
-        console.log("✅ Gmail SMTP connection is ready");
-    }
-});
+console.log("=================================");
+console.log("📧 Email Service Configuration");
+console.log("RESEND_API_KEY exists:", !!process.env.RESEND_API_KEY);
+console.log("EMAIL_FROM:", FROM_EMAIL);
+console.log("=================================");
 
 const sendInvoiceReceipt = async (invoice, pdfPath) => {
-
     try {
-
         console.log("=================================");
         console.log("📧 Starting receipt email");
         console.log("To:", invoice.clientEmail);
-        console.log("From:", process.env.EMAIL_USER);
+        console.log("From:", FROM_EMAIL);
         console.log("PDF:", pdfPath);
         console.log("Invoice:", invoice.invoiceNumber);
         console.log("=================================");
 
-        const mailOptions = {
+        // Check that the PDF exists before sending
+        if (!fs.existsSync(pdfPath)) {
+            throw new Error(`PDF file not found: ${pdfPath}`);
+        }
 
-            from: `"VaultPay" <${process.env.EMAIL_USER}>`,
+        // Read PDF and convert it to Base64
+        const pdfBuffer = fs.readFileSync(pdfPath);
+        const pdfBase64 = pdfBuffer.toString("base64");
 
-            to: invoice.clientEmail,
+        const { data, error } = await resend.emails.send({
+            from: `VaultPay <${FROM_EMAIL}>`,
+
+            to: [invoice.clientEmail],
 
             subject: `Payment Receipt - ${invoice.invoiceNumber}`,
 
@@ -94,25 +89,24 @@ Nexus Corporate Services
             attachments: [
                 {
                     filename: `${invoice.invoiceNumber}-receipt.pdf`,
-                    path: pdfPath
+                    content: pdfBase64
                 }
             ]
-        };
+        });
 
-        const info = await transporter.sendMail(mailOptions);
+        if (error) {
+            console.error("❌ RESEND EMAIL FAILED");
+            console.error(error);
+            throw error;
+        }
 
         console.log("✅ RECEIPT EMAIL SENT");
-        console.log("Message ID:", info.messageId);
-        console.log("Response:", info.response);
+        console.log("Resend Email ID:", data.id);
 
-        return info;
+        return data;
 
     } catch (error) {
-
         console.error("❌ RECEIPT EMAIL FAILED");
-        console.error("Error code:", error.code);
-        console.error("Error command:", error.command);
-        console.error("Error response:", error.response);
         console.error("Error message:", error.message);
 
         throw error;
