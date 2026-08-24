@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { createInvoice } from "../services/invoiceService";
-
+import "./CreateInvoice.css";
 const CreateInvoice = () => {
     const navigate = useNavigate();
 

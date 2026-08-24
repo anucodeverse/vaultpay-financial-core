@@ -1,0 +1,311 @@
+/* =========================================
+   VAULTPAY CREATE INVOICE PAGE
+========================================= */
+
+.create-invoice-page {
+    min-height: 100vh;
+    background: #f4f7fb;
+}
+
+/* =========================================
+   FORM CONTAINER
+========================================= */
+
+.form-container {
+    width: 100%;
+    max-width: 800px;
+
+    margin: 0 auto;
+
+    padding: 40px 24px;
+}
+
+/* =========================================
+   FORM HEADER
+========================================= */
+
+.form-header {
+    margin-bottom: 25px;
+}
+
+.form-header h1 {
+    margin: 0 0 8px;
+
+    font-size: 32px;
+    font-weight: 700;
+
+    color: #111827;
+}
+
+.form-header p {
+    margin: 0;
+
+    color: #6b7280;
+
+    font-size: 15px;
+}
+
+/* =========================================
+   INVOICE FORM
+========================================= */
+
+.invoice-form {
+    background: #ffffff;
+
+    padding: 32px;
+
+    border-radius: 12px;
+
+    border: 1px solid #e5e7eb;
+
+    box-shadow:
+        0 5px 20px rgba(15, 23, 42, 0.08);
+}
+
+/* =========================================
+   FORM GROUP
+========================================= */
+
+.invoice-form .form-group {
+    margin-bottom: 20px;
+}
+
+.invoice-form label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    color: #374151;
+}
+
+/* =========================================
+   INPUTS & SELECT
+========================================= */
+
+.invoice-form input,
+.invoice-form select {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    color: #111827;
+
+    font-size: 15px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.invoice-form input::placeholder {
+    color: #9ca3af;
+}
+
+.invoice-form input:focus,
+.invoice-form select:focus {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* =========================================
+   FORM ROW
+========================================= */
+
+.form-row {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 20px;
+}
+
+/* =========================================
+   ERROR MESSAGE
+========================================= */
+
+.error-message {
+    margin-bottom: 20px;
+
+    padding: 12px 14px;
+
+    border-radius: 8px;
+
+    background: #fef2f2;
+
+    color: #dc2626;
+
+    border: 1px solid #fecaca;
+
+    font-size: 14px;
+}
+
+/* =========================================
+   SUCCESS MESSAGE
+========================================= */
+
+.success-message {
+    margin-bottom: 20px;
+
+    padding: 12px 14px;
+
+    border-radius: 8px;
+
+    background: #ecfdf5;
+
+    color: #047857;
+
+    border: 1px solid #a7f3d0;
+
+    font-size: 14px;
+}
+
+/* =========================================
+   FORM ACTIONS
+========================================= */
+
+.form-actions {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 12px;
+
+    margin-top: 25px;
+
+    padding-top: 5px;
+}
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.primary-button,
+.secondary-button {
+    padding: 11px 20px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.1s ease;
+}
+
+/* Primary */
+
+.primary-button {
+    border: none;
+
+    background: #2563eb;
+
+    color: #ffffff;
+}
+
+.primary-button:hover {
+    background: #1d4ed8;
+}
+
+.primary-button:active {
+    transform: translateY(1px);
+}
+
+.primary-button:disabled {
+    background: #93c5fd;
+
+    cursor: not-allowed;
+}
+
+/* Secondary */
+
+.secondary-button {
+    border: 1px solid #d1d5db;
+
+    background: #ffffff;
+
+    color: #374151;
+}
+
+.secondary-button:hover {
+    background: #f9fafb;
+
+    border-color: #9ca3af;
+}
+
+.secondary-button:active {
+    transform: translateY(1px);
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+
+    .form-container {
+        padding: 30px 16px;
+    }
+
+    .form-header h1 {
+        font-size: 28px;
+    }
+
+    .invoice-form {
+        padding: 24px 20px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+
+        gap: 0;
+    }
+}
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 480px) {
+
+    .form-container {
+        padding: 24px 14px;
+    }
+
+    .form-header h1 {
+        font-size: 25px;
+    }
+
+    .invoice-form {
+        padding: 20px 16px;
+
+        border-radius: 10px;
+    }
+
+    .form-actions {
+        flex-direction: column-reverse;
+    }
+
+    .primary-button,
+    .secondary-button {
+        width: 100%;
+    }
+}
