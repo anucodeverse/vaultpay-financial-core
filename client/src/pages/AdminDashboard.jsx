@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { useAuth } from "../context/AuthContext";
-
+import "./AdminDashboard.css";
 const AdminDashboard = () => {
     const { user } = useAuth();
 
