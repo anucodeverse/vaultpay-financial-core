@@ -1,0 +1,123 @@
+/* =========================================
+   VAULTPAY LOGIN PAGE
+========================================= */
+
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: linear-gradient(135deg, #eef4ff, #f8fafc);
+}
+
+.login-card {
+    width: 100%;
+    max-width: 420px;
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 12px 40px rgba(15, 23, 42, 0.12);
+}
+
+.login-card h1 {
+    text-align: center;
+    font-size: 32px;
+    color: #111827;
+    margin-bottom: 8px;
+}
+
+.login-card > p {
+    text-align: center;
+    color: #6b7280;
+    margin-bottom: 32px;
+}
+
+.login-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    outline: none;
+}
+
+.form-group input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* Sign In Button */
+
+.login-card form button {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 8px;
+    background: #2563eb;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.login-card form button:hover {
+    background: #1d4ed8;
+}
+
+.login-card form button:disabled {
+    background: #93c5fd;
+    cursor: not-allowed;
+}
+
+/* Error */
+
+.error-message {
+    padding: 10px 12px;
+    border-radius: 7px;
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+    font-size: 14px;
+}
+
+/* =========================================
+   REGISTER LINK
+========================================= */
+
+.login-register {
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid #e5e7eb;
+    text-align: center;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.login-register button {
+    width: auto;
+    margin-left: 5px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #2563eb;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.login-register button:hover {
+    background: transparent;
+    text-decoration: underline;
+}

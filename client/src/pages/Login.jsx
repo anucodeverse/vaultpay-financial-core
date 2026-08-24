@@ -39,6 +39,7 @@ const Login = () => {
 
     return (
         <div className="login-page">
+
             <div className="login-card">
 
                 <h1>VaultPay</h1>
@@ -98,7 +99,20 @@ const Login = () => {
 
                 </form>
 
+                {/* Register Link */}
+                <div className="login-register">
+                    <span>Don't have an account?</span>
+
+                    <button
+                        type="button"
+                        onClick={() => navigate("/register")}
+                    >
+                        Create Account
+                    </button>
+                </div>
+
             </div>
+
         </div>
     );
 };
